@@ -48,7 +48,7 @@
     currentDate.setMonth(startDate.getMonth() + parseInt(value));
     
     const options = { year: 'numeric', month: 'long' };
-    label.textContent = 'Month: ' + currentDate.toLocaleDateString(undefined, options);
+    label.textContent = 'Month: ' + currentDate.toLocaleDateString('en-US', options);
   }
 
   slider.addEventListener('input', (e) => {
