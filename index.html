@@ -13,6 +13,7 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
+      background-color: #f0f4e5;
     }
 
     .slidecontainer {
@@ -22,29 +23,32 @@
     }
 
     input[type=range] {
-      width: 100%;
       -webkit-appearance: none;
-      background: transparent;
+      width: 100%;
+      height: 12px;
+      background: #ccc;
+      border-radius: 5px;
+      outline: none;
     }
 
-    /* Chrome, Safari, Edge */
+    /* WebKit (Chrome, Safari) */
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 30px;
-      height: 30px;
-      background: url('assets/Slider.png') no-repeat center;
-      background-size: contain;
+      width: 40px;
+      height: 40px;
+      background: url('assets/Slider.PNG') no-repeat center;
+      background-size: cover;
       cursor: pointer;
       border: none;
     }
 
     /* Firefox */
     input[type=range]::-moz-range-thumb {
-      width: 30px;
-      height: 30px;
-      background: url('assets/custom-thumb.png') no-repeat center;
-      background-size: contain;
+      width: 40px;
+      height: 40px;
+      background: url('assets/Slider.PNG') no-repeat center;
+      background-size: cover;
       cursor: pointer;
       border: none;
     }
@@ -63,21 +67,19 @@
 </div>
 
 <script>
-  const startDate = new Date(2025, 4); // May 2025 (0-based month index)
+  const startDate = new Date(2025, 4); // May 2025 (0-based month)
   const slider = document.getElementById('monthSlider');
   const label = document.getElementById('month-label');
 
   function updateLabel(value) {
     const currentDate = new Date(startDate);
     currentDate.setMonth(startDate.getMonth() + parseInt(value));
-    
     const options = { year: 'numeric', month: 'long' };
     label.textContent = 'Month: ' + currentDate.toLocaleDateString('en-US', options);
   }
 
   slider.addEventListener('input', (e) => {
     updateLabel(e.target.value);
-    console.log('Selected month index:', e.target.value);
   });
 
   // Initialize label on page load
@@ -86,3 +88,4 @@
 
 </body>
 </html>
+
