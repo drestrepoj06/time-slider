@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Time Slider</title>
+  <title>Monthly Time Slider</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,64 +17,47 @@
 
     .slidecontainer {
       width: 80%;
-      max-width: 400px;
+      max-width: 600px;
       text-align: center;
     }
 
-    .slider {
-      -webkit-appearance: none;
-      appearance: none;
+    input[type=range] {
       width: 100%;
-      height: 20px;
-      background: #f0f0f0;
-      outline: none;
-      opacity: 0.7;
-      transition: opacity .2s;
     }
 
-    .slider:hover {
-      opacity: 1;
-    }
-
-    .slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      background: #4CAF50;
-      cursor: pointer;
-      border: none;
-    }
-
-    .slider::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      background: #4CAF50;
-      cursor: pointer;
-      border: none;
-    }
-
-    #time-label {
-      margin-top: 10px;
+    #month-label {
       font-size: 1.2rem;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
 <div class="slidecontainer">
-  <input type="time" class="slider" id="myTime" name="myTime" value="10:00">
-  <div id="time-label">Selected time: 10:00</div>
+  <input type="range" min="0" max="23" value="0" class="slider" id="monthSlider">
+  <div id="month-label">Month: May 2025</div>
 </div>
 
 <script>
-  const myTime = document.getElementById('myTime');
-  const timeLabel = document.getElementById('time-label');
+  const startDate = new Date(2025, 4); // May 2025 (0-based month index)
+  const slider = document.getElementById('monthSlider');
+  const label = document.getElementById('month-label');
 
-  myTime.addEventListener('change', (event) => {
-    timeLabel.textContent = `Selected time: ${event.target.value}`;
-    console.log(event.target.value);
+  function updateLabel(value) {
+    const currentDate = new Date(startDate);
+    currentDate.setMonth(startDate.getMonth() + parseInt(value));
+    
+    const options = { year: 'numeric', month: 'long' };
+    label.textContent = 'Month: ' + currentDate.toLocaleDateString(undefined, options);
+  }
+
+  slider.addEventListener('input', (e) => {
+    updateLabel(e.target.value);
+    console.log('Selected month index:', e.target.value);
   });
+
+  // Initialize label on page load
+  updateLabel(slider.value);
 </script>
 
 </body>
